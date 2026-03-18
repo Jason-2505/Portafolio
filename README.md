@@ -18,11 +18,16 @@ Soy estudiante de tecnología enfocado en el desarrollo de software, con interé
 Tecnologías: Oracle SQL
 
 
+### 🐾 Sistema Clínico Veterinario
 
-### 📱 Sistema de Facturación (Casos de Uso)
-- Análisis y documentación de requerimientos
-- Diagramas de casos de uso
-- Herramientas: UML
+Sistema de gestión para clínicas veterinarias que permite administrar información de mascotas, propietarios, citas y consultas médicas.
+
+- Registro de clientes y mascotas
+- Gestión de citas veterinarias
+- Historial de consultas y tratamientos
+- Diseño de base de datos relacional
+
+Tecnologías: Java
 
 
 ### 📚 Investigación sobre Sistemas Informáticos
