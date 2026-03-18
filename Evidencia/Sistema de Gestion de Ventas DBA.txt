@@ -1,0 +1,218 @@
+-- Parte 1
+
+CREATE USER JASON IDENTIFIED BY Jason2264
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp
+QUOTA UNLIMITED ON users;
+
+CREATE USER REPORTES_USER IDENTIFIED BY Reportes2264
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp
+QUOTA 0 ON users;
+
+CREATE ROLE ROL_VENTAS;
+
+GRANT CREATE SESSION TO ROL_VENTAS;
+GRANT CREATE TABLE TO ROL_VENTAS;
+GRANT CREATE VIEW TO ROL_VENTAS;
+
+GRANT ROL_VENTAS TO JASON;
+
+
+GRANT SELECT ON JASON.productos TO REPORTES_USER;
+GRANT SELECT ON JASON.clientes TO REPORTES_USER;
+GRANT SELECT ON JASON.ventas TO REPORTES_USER;
+GRANT SELECT ON JASON.detalle_ventas TO REPORTES_USER;
+
+REVOKE SELECT ON productos FROM REPORTES_USER;
+
+
+
+-- Parte 2
+
+CREATE TABLE producto (
+    id_producto NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100) NOT NULL,
+    precio NUMBER(10,2) CHECK (precio > 0),
+    existencia NUMBER CHECK (existencia >= 0)
+);
+
+CREATE TABLE cliente (
+    id_cliente NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100),
+    telefono VARCHAR2(20) UNIQUE,
+    fecha_registro DATE DEFAULT SYSDATE
+);
+
+CREATE TABLE venta (
+    id_venta NUMBER PRIMARY KEY,
+    id_cliente NUMBER,
+    fecha_venta DATE DEFAULT SYSDATE,
+    total NUMBER(10,2) CHECK (total >= 0),
+    CONSTRAINT fk_venta_cliente
+        FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
+
+CREATE TABLE detalle_venta (
+    id_detalle NUMBER PRIMARY KEY,
+    id_venta NUMBER,
+    id_producto NUMBER,
+    cantidad NUMBER CHECK (cantidad > 0),
+    precio_unitario NUMBER(10,2),
+    subtotal NUMBER(10,2),
+    CONSTRAINT fk_detalle_venta
+        FOREIGN KEY (id_venta) REFERENCES venta(id_venta),
+    CONSTRAINT fk_detalle_producto
+        FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+);
+
+
+
+-- Parte 3
+
+ALTER TABLE producto
+ADD ESTADO VARCHAR(20) DEFAULT 'ACTIVO';
+
+ALTER TABLE cliente 
+MODIFY telefono VARCHAR2(25);
+
+ALTER TABLE producto
+DROP COLUMN ESTADO;
+
+
+
+-- Parte 4
+
+CREATE SEQUENCE SEQ_PRODUCTO
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE SEQ_CLIENTE
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE SEQ_VENTA
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE SEQ_DETALLE_VENTA
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SYNONYM PRODUCTO_S
+FOR JASON.PRODUCTO;
+
+
+
+-- Parte 5
+
+CREATE OR REPLACE TRIGGER trg_detalle_venta_bi
+BEFORE INSERT ON detalle_venta
+FOR EACH ROW
+DECLARE
+    v_precio PRODUCTO.precio%TYPE;
+BEGIN
+    SELECT precio
+    INTO v_precio
+    FROM producto
+    WHERE id_producto = :NEW.id_producto;
+    :NEW.precio_unitario := v_precio;
+    :NEW.subtotal := :NEW.cantidad * v_precio;
+END;
+
+SELECT trigger_name, status
+FROM user_triggers
+WHERE table_name = 'DETALLE_VENTA';
+
+
+
+-- Parte 6
+
+CREATE OR REPLACE PROCEDURE registrar_venta (
+    p_id_cliente     IN NUMBER,
+    p_id_producto1   IN NUMBER,
+    p_cantidad1      IN NUMBER,
+    p_id_producto2   IN NUMBER,
+    p_cantidad2      IN NUMBER
+) AS
+    v_id_venta NUMBER;
+    v_total    NUMBER;
+BEGIN
+    SELECT seq_venta.NEXTVAL INTO v_id_venta FROM dual;
+
+    INSERT INTO venta (id_venta, id_cliente, fecha_venta)
+    VALUES (v_id_venta, p_id_cliente, SYSDATE);
+
+    INSERT INTO detalle_venta (id_detalle, id_venta, id_producto, cantidad)
+    VALUES (seq_detalle_venta.NEXTVAL, v_id_venta, p_id_producto1, p_cantidad1);
+
+    UPDATE producto
+    SET existencia = existencia - p_cantidad1
+    WHERE id_producto = p_id_producto1;
+
+    -- Detalle 2
+    INSERT INTO detalle_venta (id_detalle, id_venta, id_producto, cantidad)
+    VALUES (seq_detalle_venta.NEXTVAL, v_id_venta, p_id_producto2, p_cantidad2);
+
+    UPDATE producto
+    SET existencia = existencia - p_cantidad2
+    WHERE id_producto = p_id_producto2;
+
+    SELECT SUM(subtotal)
+    INTO v_total
+    FROM detalle_venta
+    WHERE id_venta = v_id_venta;
+
+    UPDATE venta
+    SET total = v_total
+    WHERE id_venta = v_id_venta;
+
+    COMMIT;
+END;
+
+
+-- Parte 7
+
+INSERT INTO cliente (id_cliente, nombre, telefono)
+VALUES (seq_cliente.NEXTVAL, 'Evanyeline', '8291111111');
+
+INSERT INTO venta (id_venta, id_cliente)
+VALUES (seq_venta.NEXTVAL, seq_cliente.CURRVAL);
+
+COMMIT;
+
+INSERT INTO cliente (id_cliente, nombre, telefono)
+VALUES (seq_cliente.NEXTVAL, 'Jason', '8292222222');
+
+ROLLBACK;
+
+
+-- Parte 8
+
+CREATE TABLE producto_update (
+    id_producto      NUMBER,
+    nuevo_precio     NUMBER,
+    nueva_existencia NUMBER
+);
+
+INSERT INTO producto_update VALUES (1, 150.00, 40);
+INSERT INTO producto_update VALUES (2, 299.99, 20);
+INSERT INTO producto_update VALUES (3, 99.50, 10);
+
+COMMIT;
+
+MERGE INTO producto p
+USING producto_update u
+ON (p.id_producto = u.id_producto)
+WHEN MATCHED THEN
+    UPDATE SET
+        p.precio = u.nuevo_precio,
+        p.existencia = u.nueva_existencia;
+        
+SELECT * FROM producto
+WHERE id_producto IN (1, 2, 3);
+        
