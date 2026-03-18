@@ -1,0 +1,454 @@
+/* ---------------------- VARIABLES DE COLOR Y TIPOGRAFÍA ---------------------- */
+:root {
+    --color-primary: #d97706; /* Naranja terrosa - marca gastronómica */
+    --color-primary-dark: #b45309;
+    --color-primary-light: #fbbf24;
+    --color-secondary: #0f172a; /* Azul oscuro - contraste elegante */
+    --color-secondary-light: #1e293b;
+    --color-success: #166534;
+    --color-danger: #991b1b;
+    --color-warning: #92400e;
+    --color-light: #f8fafc;
+    --color-dark: #18181b;
+    --color-gray: #64748b;
+    --color-gray-light: #e2e8f0;
+    --color-gray-dark: #334155;
+
+    --font-main: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-heading: 'Georgia', 'Times New Roman', Times, serif;
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    --transition-fast: all 0.2s ease-in-out;
+    --transition-normal: all 0.3s ease-in-out;
+}
+
+/* ---------------------- ESTILOS GENERALES ---------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    /* Fondo con degradado suave y fijo */
+    background: linear-gradient(120deg, #fef3c7, #f8fafc, #e0f2fe);
+    background-size: 200% 200%;
+    color: var(--color-secondary);
+    line-height: 1.6;
+    background-attachment: fixed;
+    /* Animación suave del degradado */
+    animation: gradientShift 15s ease infinite;
+}
+
+/* Animación para el degradado */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px; 
+}
+
+/* ---------------------- BARRA DE NAVEGACIÓN ---------------------- */
+.navbar {
+    background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%) !important;
+    box-shadow: var(--shadow-md);
+    padding: 1rem 0 !important;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+    font-family: var(--font-heading);
+    font-size: 1.5rem !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-brand i {
+    color: var(--color-primary-light);
+    font-size: 1.8rem;
+}
+
+.nav-link {
+    color: var(--color-light) !important;
+    font-weight: 500;
+    position: relative;
+    margin: 0 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--color-primary-light) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary-light);
+    transition: var(--transition-normal);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+.navbar-toggler {
+    border-color: var(--color-light) !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* ---------------------- CONTENEDOR PRINCIPAL ---------------------- */
+.container {
+    max-width: 1400px !important;
+    padding: 0 1.5rem !important;
+}
+
+section {
+    margin-bottom: 3rem !important;
+}
+
+/* ---------------------- TARJETAS PRINCIPALES ---------------------- */
+.card {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: var(--transition-normal);
+    /* Fondo blanco semitransparente para resaltar */
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(5px); /* Efecto desenfocado sutil */
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+}
+
+.card-header {
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
+    color: var(--color-light) !important;
+    padding: 1.5rem !important;
+    border: none !important;
+}
+
+.card-header h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.card-header i {
+    font-size: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem !important;
+}
+
+/* ---------------------- FORMULARIOS ---------------------- */
+.form-label {
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem !important;
+}
+
+.form-control, .form-select {
+    border: 1px solid var(--color-gray-light) !important;
+    border-radius: 8px !important;
+    padding: 0.8rem 1rem !important;
+    transition: var(--transition-fast);
+    background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(217, 119, 6, 0.25) !important;
+    border-color: var(--color-primary) !important;
+    background-color: white !important;
+}
+
+/* ---------------------- BOTONES ---------------------- */
+.btn {
+    border-radius: 8px !important;
+    padding: 0.8rem 1.2rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition-fast);
+    border: none !important;
+}
+
+.btn-success {
+    background-color: var(--color-success) !important;
+}
+
+.btn-success:hover {
+    background-color: #14532d !important;
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-primary) 100%) !important;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background-color: var(--color-danger) !important;
+}
+
+.btn-danger:hover {
+    background-color: #7f1d1d !important;
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    border: 1px solid var(--color-primary) !important;
+    color: var(--color-primary) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary) !important;
+    color: var(--color-light) !important;
+    transform: translateY(-1px);
+}
+
+.btn-info {
+    background-color: var(--color-gray-dark) !important;
+}
+
+.btn-info:hover {
+    background-color: var(--color-secondary) !important;
+    transform: translateY(-1px);
+}
+
+.btn-warning {
+    background-color: var(--color-warning) !important;
+}
+
+.btn-warning:hover {
+    background-color: #78350f !important;
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem !important;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* ---------------------- TARJETAS DE PLATOS Y MESAS ---------------------- */
+.plato-card, .mesa-card {
+    border: 1px solid var(--color-gray-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    transition: var(--transition-normal);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backdrop-filter: blur(3px);
+}
+
+.plato-card:hover, .mesa-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+
+.plato-card h5, .mesa-card h5 {
+    font-family: var(--font-heading);
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.plato-card p {
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-dark);
+}
+
+/* ---------------------- BADGES PERSONALIZADOS ---------------------- */
+.badge {
+    border-radius: 6px !important;
+    padding: 0.4rem 0.8rem !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    text-transform: capitalize;
+}
+
+.badge-categoria {
+    background-color: var(--color-secondary-light) !important;
+    color: var(--color-light) !important;
+}
+
+.badge-ocupada {
+    background-color: var(--color-danger) !important;
+    color: var(--color-light) !important;
+}
+
+.badge-libre {
+    background-color: var(--color-success) !important;
+    color: var(--color-light) !important;
+}
+
+.badge-stock-bajo {
+    background-color: var(--color-primary-light) !important;
+    color: var(--color-secondary) !important;
+    font-weight: 600;
+}
+
+.badge-stock-normal {
+    background-color: var(--color-success) !important;
+    color: var(--color-light) !important;
+}
+
+/* ---------------------- TABLAS ---------------------- */
+.table {
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(5px);
+}
+
+.table thead {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-light) !important;
+}
+
+.table th {
+    padding: 1rem !important;
+    border: none !important;
+    font-weight: 500;
+    text-align: left;
+}
+
+.table td {
+    padding: 1rem !important;
+    border-color: var(--color-gray-light) !important;
+    vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(226, 232, 240, 0.3) !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(217, 119, 6, 0.05) !important;
+}
+
+/* ---------------------- RESPONSIVE DESIGN ---------------------- */
+@media (max-width: 992px) {
+    .navbar-nav {
+        gap: 0.5rem;
+        padding-top: 1rem;
+    }
+
+    .nav-link {
+        padding-left: 0.5rem !important;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .plato-card, .mesa-card {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-header h4 {
+        font-size: 1.2rem;
+    }
+
+    .card-header i {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        padding: 0.7rem 1rem !important;
+        font-size: 0.9rem;
+    }
+
+    .table th, .table td {
+        padding: 0.8rem !important;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 0 1rem !important;
+    }
+
+    .card-body {
+        padding: 1rem !important;
+    }
+
+    .row.g-3 {
+        gap: 1rem !important;
+    }
+
+    .plato-card h5, .mesa-card h5 {
+        font-size: 1.1rem;
+    }
+}
+
+/* ---------------------- EFECTOS EXTRA ---------------------- */
+/* Animación para elementos al cargar */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Espaciado entre grupos de formulario */
+.row.g-3 {
+    gap: 1.5rem !important;
+}
