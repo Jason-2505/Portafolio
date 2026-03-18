@@ -59,6 +59,10 @@ Desarrollar una aplicación web que simule el funcionamiento de un sistema real 
 - Implementación de backend (API REST)
 - Control avanzado de inventario
 
+## 📷 Vista del Sistema
+
+*https://jason-2505.github.io/Portafolio/Evidencia/Sistema%20de%20Gesti%C3%B3n%20de%20Restaurante/Vista%20del%20Sistema/index.html*
+
 
 ## 📈 Estado del Proyecto
 
