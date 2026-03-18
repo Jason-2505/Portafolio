@@ -30,25 +30,16 @@ Sistema de gestión para clínicas veterinarias que permite administrar informac
 Tecnologías: Java
 
 
-# 🌐 Sistema de Gestión de Citas
+### 🍽️ Sistema de Gestión de Restaurante
 
-Aplicación web desarrollada con HTML, CSS y JavaScript para la gestión de citas, permitiendo registrar, visualizar y eliminar citas de manera dinámica.
+Sistema web desarrollado para la administración de un restaurante, permitiendo gestionar pedidos, menú, mesas y facturación mediante una interfaz interactiva.
 
-## 🚀 Funcionalidades
+- Gestión de pedidos por mesa
+- Cálculo dinámico de totales
+- Administración de menú y platos
+- Control de estado de mesas
 
-- Registro de citas con nombre, servicio y fecha
-- Validación de campos obligatorios
-- Visualización dinámica de citas
-- Eliminación de citas
-- Persistencia de datos con LocalStorage
-
-## 🛠️ Tecnologías
-
-- HTML
-- CSS
-- JavaScript
-
-
+Tecnologías: HTML, CSS, JavaScript
 
 
 ## 📞 Contacto
