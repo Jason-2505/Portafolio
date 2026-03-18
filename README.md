@@ -1,4 +1,4 @@
-# 👨‍💻 Portafolio de [Jason Lopez]
+# 👨‍💻 Portafolio de Jason Lopez
 
 ## 📌 Sobre mí
 Soy estudiante de tecnología enfocado en el desarrollo de software, con interés en bases de datos y análisis de sistemas. Este portafolio reúne proyectos académicos donde aplico diseño de bases de datos, modelado entidad-relación y documentación de sistemas. He trabajado en varios proyectos académicos que demuestran mis habilidades.
@@ -30,10 +30,26 @@ Sistema de gestión para clínicas veterinarias que permite administrar informac
 Tecnologías: Java
 
 
-### 📚 Investigación sobre Sistemas Informáticos
-- Estudio de organizaciones tecnológicas
-- Roles en el desarrollo de software
+# 🌐 Sistema de Gestión de Citas
+
+Aplicación web desarrollada con HTML, CSS y JavaScript para la gestión de citas, permitiendo registrar, visualizar y eliminar citas de manera dinámica.
+
+## 🚀 Funcionalidades
+
+- Registro de citas con nombre, servicio y fecha
+- Validación de campos obligatorios
+- Visualización dinámica de citas
+- Eliminación de citas
+- Persistencia de datos con LocalStorage
+
+## 🛠️ Tecnologías
+
+- HTML
+- CSS
+- JavaScript
+
+
 
 
 ## 📞 Contacto
-- Email: [tu correo]
+- Email: lyunior562@gmail.com
